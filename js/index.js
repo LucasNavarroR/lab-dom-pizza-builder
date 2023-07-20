@@ -102,45 +102,80 @@ function renderButtons() {
 
 function renderPrice() {
   //Iteration 4: change the HTML of `<aside class="panel price">`
-let realUl = document.querySelector('.price ul');
+
+  let realUl = document.querySelector('.price ul');
   let ulNode = document.querySelectorAll('.price li');
+  let price = document.querySelector('.price strong');
 
-  
+  let percioStrin = JSON.stringify(price.innerText);
+  let percioSliced = percioStrin.slice(2, -1);
 
-  
+  console.log(price);
+
+  if (ulNode.length === 0) {
+    let liNode1 = document.createElement('li');
+
+    realUl.append(liNode1);
+  }
 
   ulNode.forEach((elem) => {
     if (state.pepperoni === false && elem.innerText === '$1 pepperoni') {
       elem.remove();
-    } else   if (state.pepperoni === true && !realUl.innerText.includes('$1 pepperoni')) {
+      percioSliced--;
+      price.innerText = `$${percioSliced}`;
+    } else if (
+      state.pepperoni === true &&
+      !realUl.innerText.includes('$1 pepperoni')
+    ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$1 pepperoni';
-      
+      percioSliced++;
+      price.innerText = `$${percioSliced}`;
       return realUl.append(liNode1);
     }
-  
 
     if (state.mushrooms === false && elem.innerText === '$1 mushrooms') {
       elem.remove();
-    } else   if (state.mushrooms === true && !realUl.innerText.includes('$1 mushrooms') ) {
+      percioSliced--;
+      price.innerText = `$${percioSliced}`;
+    } else if (
+      state.mushrooms === true &&
+      !realUl.innerText.includes('$1 mushrooms')
+    ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$1 mushrooms';
-      
+      percioSliced++;
+      price.innerText = `$${percioSliced}`;
+
       return realUl.append(liNode1);
     }
     if (state.greenPeppers === false && elem.innerText === '$1 green peppers') {
       elem.remove();
-    } else   if (state.greenPeppers === true && !realUl.innerText.includes('$1 green peppers') ) {
+      percioSliced--;
+      price.innerText = `$${percioSliced}`;
+    } else if (
+      state.greenPeppers === true &&
+      !realUl.innerText.includes('$1 green peppers')
+    ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$1 green peppers';
+      percioSliced++;
+      price.innerText = `$${percioSliced}`;
       return realUl.append(liNode1);
     }
 
     if (state.whiteSauce === false && elem.innerText === '$3 white sauce') {
       elem.remove();
-    } else   if (state.whiteSauce === true && !realUl.innerText.includes('$3 white sauce') ) {
+      percioSliced--;
+      price.innerText = `$${percioSliced}`;
+    } else if (
+      state.whiteSauce === true &&
+      !realUl.innerText.includes('$3 white sauce')
+    ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$3 white sauce';
+      percioSliced++;
+      price.innerText = `$${percioSliced}`;
       return realUl.append(liNode1);
     }
     if (
@@ -148,19 +183,21 @@ let realUl = document.querySelector('.price ul');
       elem.innerText === '$5 gluten-free crust'
     ) {
       elem.remove();
-    } else   if (state.glutenFreeCrust === true && !realUl.innerText.includes('$5 gluten-free crust') ) {
+      percioSliced--;
+      price.innerText = `$${percioSliced}`;
+    } else if (
+      state.glutenFreeCrust === true &&
+      !realUl.innerText.includes('$5 gluten-free crust')
+    ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$5 gluten-free crust';
-      
+      percioSliced++;
+      price.innerText = `$${percioSliced}`;
+
       return realUl.append(liNode1);
     }
   });
-
-
 }
-
-
-
 
 renderEverything();
 
