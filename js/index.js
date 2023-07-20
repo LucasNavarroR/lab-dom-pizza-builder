@@ -15,8 +15,8 @@ const state = {
   pepperoni: true,
   mushrooms: true,
   greenPeppers: true,
-  whiteSauce: false,
-  glutenFreeCrust: false
+  whiteSauce: true,
+  glutenFreeCrust: true
 };
 
 // This function takes care of rendering the pizza based on the state
@@ -88,17 +88,38 @@ function renderGlutenFreeCrust() {
 
 function renderButtons() {
   // Iteration 3: add/remove the class "active" of each `<button class="btn">`
-  let peperNode = document.querySelector('.btn.btn-pepperoni');
-  peperNode.classList.toggle('active');
-  let mushNode = document.querySelector('.btn.btn-mushrooms');
-  mushNode.classList.toggle('active');
-  let greenNode = document.querySelector('.btn.btn-green-peppers');
-  greenNode.classList.toggle('active');
-  let sauceNode = document.querySelector('.btn.btn-sauce');
-  sauceNode.classList.toggle('active');
-  let crustNode = document.querySelector('.btn.btn-crust');
-  crustNode.classList.toggle('active');
-}
+  let buttonsNode = document.querySelectorAll('.panel ul li button');
+
+  buttonsNode.forEach((element) => {
+     if (state.pepperoni === true && element.innerText === "pepperoni") {
+     return  element.classList.add("active")
+     } else if (state.pepperoni === false && element.innerText === "pepperoni") {
+      return element.classList.remove("active")
+     }
+     if (state.mushrooms === true && element.innerText === "Mushrooms") {
+      return element.classList.add("active")
+     } else if (state.mushrooms === false && element.innerText === "Mushrooms"){
+      return element.classList.remove("active")
+     }
+     if (state.greenPeppers === true && element.innerText === "Green peppers") {
+      return  element.classList.add("active")
+     } else if (state.greenPeppers === false && element.innerText === "Green peppers") {
+      return  element.classList.remove("active")
+     }
+     if (state.whiteSauce === true && element.innerText === "White sauce") {
+      return element.classList.add("active")
+     } else if (state.whiteSauce === false && element.innerText === "White sauce") {
+      return element.classList.remove("active")
+     }
+     if (state.glutenFreeCrust === true && element.innerText === "Gluten-free crust") {
+      return element.classList.add("active")
+     } else if (state.glutenFreeCrust === false && element.innerText === "Gluten-free crust") {
+      return element.classList.remove("active")
+     }
+     
+  })   
+}         
+
 
 function renderPrice() {
   //Iteration 4: change the HTML of `<aside class="panel price">`
@@ -110,72 +131,64 @@ function renderPrice() {
   let percioStrin = JSON.stringify(price.innerText);
   let percioSliced = percioStrin.slice(2, -1);
 
-  console.log(price);
-
-  if (ulNode.length === 0) {
-    let liNode1 = document.createElement('li');
-
-    realUl.append(liNode1);
-  }
+  let liNode1 = document.createElement('li');
+  liNode1.style.display = 'none';
+  realUl.append(liNode1);
 
   ulNode.forEach((elem) => {
     if (state.pepperoni === false && elem.innerText === '$1 pepperoni') {
       elem.remove();
-      percioSliced--;
-      price.innerText = `$${percioSliced}`;
+      price.innerText = `$${Number(percioSliced) - 1}`;
     } else if (
       state.pepperoni === true &&
       !realUl.innerText.includes('$1 pepperoni')
     ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$1 pepperoni';
-      percioSliced++;
-      price.innerText = `$${percioSliced}`;
+      price.innerText = `$${Number(percioSliced) + 1}`;
       return realUl.append(liNode1);
     }
 
     if (state.mushrooms === false && elem.innerText === '$1 mushrooms') {
       elem.remove();
-      percioSliced--;
-      price.innerText = `$${percioSliced}`;
+      price.innerText = `$${Number(percioSliced) - 1}`;
     } else if (
       state.mushrooms === true &&
       !realUl.innerText.includes('$1 mushrooms')
     ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$1 mushrooms';
-      percioSliced++;
-      price.innerText = `$${percioSliced}`;
+
+      price.innerText = `$${Number(percioSliced) + 1}`;
 
       return realUl.append(liNode1);
     }
     if (state.greenPeppers === false && elem.innerText === '$1 green peppers') {
       elem.remove();
-      percioSliced--;
-      price.innerText = `$${percioSliced}`;
+      price.innerText = `$${Number(percioSliced) - 1}`;
     } else if (
       state.greenPeppers === true &&
       !realUl.innerText.includes('$1 green peppers')
     ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$1 green peppers';
-      percioSliced++;
-      price.innerText = `$${percioSliced}`;
+
+      price.innerText = `$${Number(percioSliced) + 1}`;
       return realUl.append(liNode1);
     }
 
     if (state.whiteSauce === false && elem.innerText === '$3 white sauce') {
       elem.remove();
-      percioSliced--;
-      price.innerText = `$${percioSliced}`;
+
+      price.innerText = `$${Number(percioSliced) - 3}`;
     } else if (
       state.whiteSauce === true &&
       !realUl.innerText.includes('$3 white sauce')
     ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$3 white sauce';
-      percioSliced++;
-      price.innerText = `$${percioSliced}`;
+
+      price.innerText = `$${Number(percioSliced) + 3}`;
       return realUl.append(liNode1);
     }
     if (
@@ -183,16 +196,16 @@ function renderPrice() {
       elem.innerText === '$5 gluten-free crust'
     ) {
       elem.remove();
-      percioSliced--;
-      price.innerText = `$${percioSliced}`;
+
+      price.innerText = `$${Number(percioSliced) - 5}`;
     } else if (
       state.glutenFreeCrust === true &&
       !realUl.innerText.includes('$5 gluten-free crust')
     ) {
       let liNode1 = document.createElement('li');
       liNode1.innerText = '$5 gluten-free crust';
-      percioSliced++;
-      price.innerText = `$${percioSliced}`;
+
+      price.innerText = `$${Number(percioSliced) + 5}`;
 
       return realUl.append(liNode1);
     }
